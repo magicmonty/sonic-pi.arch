@@ -2,7 +2,7 @@
 
 _name=sonic-pi
 pkgname=sonic-pi-magicmonty-git
-pkgver=v3.3.1.r772.gc8cc30262
+pkgver=v3.3.1.r774.g1acae4317
 pkgrel=1
 pkgdesc="The Live Coding Music Synth for Everyone"
 arch=('i686' 'x86_64')
@@ -31,7 +31,7 @@ prepare() {
     --pkgname "${_name}" \
     --pkgdesc "${pkgdesc}" \
     --name "${_name}" \
-    --exec "/opt/${_name}/build/gui/qt/${_name}" \
+    --exec "${_name}" \
     --categories "AudioVideo;Audio"
 }
 
@@ -58,7 +58,7 @@ package() {
   install -vDm 644 app/gui/qt/lang/*.qm -t "${pkgdir}/opt/${_name}/app/gui/qt/lang"
   install -vDm 644 app/gui/qt/help/*.html -t "${pkgdir}/opt/${_name}/app/gui/qt/help"
   install -vDm 644 app/gui/qt/html/*.html -t "${pkgdir}/opt/${_name}/app/gui/qt/html"
-  install -vDm 644 app/gui/qt/fonts/*.{ttf,md} -t "${pkgdir}/opt/${_name}/app/gui/qt/html"
+  install -vDm 644 app/gui/qt/fonts/*.{ttf,md} -t "${pkgdir}/opt/${_name}/app/gui/qt/fonts"
   # images
   install -vDm 644 app/gui/qt/images/*.png -t "${pkgdir}/opt/${_name}/app/gui/qt/images"
   install -vDm 644 app/gui/qt/images/coreteam/*.png -t "${pkgdir}/opt/${_name}/app/gui/qt/images/coreteam"
@@ -79,6 +79,7 @@ package() {
   install -vDm 644 etc/synthdefs/compiled/*.scsyndef -t "${pkgdir}/opt/${_name}/etc/synthdefs/compiled"
   # user examples
   install -vDm 644 app/config/user-examples/* -t "${pkgdir}/opt/${_name}/app/config/user-examples"
+  install -vDm 644 app/config/user-examples/* -t "${pkgdir}/etc/skel/.sonic-pi/config"
   install -vDm 644 etc/buffers/*.wav -t "${pkgdir}/opt/${_name}/etc/buffers"
   # examples
   install -vDm 644 etc/examples/algomancer/*.rb -t "${pkgdir}/opt/${_name}/etc/examples/algomancer"
@@ -121,5 +122,5 @@ package() {
   install -vdm 755 ${pkgdir}/opt/${_name}/app/server/native/sox
   ln -s /usr/bin/sox ${pkgdir}/opt/${_name}/app/server/native/sox/sox
   
-  install -vDm 755 ../${_name}.sh -t "${pkgdir}/usr/bin/${_name}"
+  install -vDm 755 ../${_name}.sh "${pkgdir}/usr/bin/${_name}"
 }
